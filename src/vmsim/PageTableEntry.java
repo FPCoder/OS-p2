@@ -7,9 +7,8 @@ package vmsim;
 
 /**
  *
- * @author ModernCyborg
+ * @author ejones
  */
-public class CPU {
-    private MMU mmu;
-    private TLBCache cache;
+public class PageTableEntry {
+    
 }

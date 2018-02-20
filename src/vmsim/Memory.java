@@ -10,5 +10,13 @@ package vmsim;
  * @author ModernCyborg
  */
 public class Memory {
+    private int[][] RAM;
     
+    /**
+     * Initializes the cache with 'n' pages. Given page size is 1 KB or 1024 B.
+     * @param n number of pages in cache
+     */
+    Memory(int n) {
+        RAM = new int[n][1024];
+    }
 }
