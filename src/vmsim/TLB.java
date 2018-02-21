@@ -7,11 +7,8 @@ package vmsim;
 
 /**
  *
- * @author ejones
+ * @author ModernCyborg
  */
-public class PageTableEntry {
-    private boolean vbit;
-    private boolean rbit;
-    private boolean dbit;
-    private int pageFrameNum;
+public class TLB {
+    private TlbEntries[] cache;
 }

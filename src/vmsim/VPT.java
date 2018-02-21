@@ -10,5 +10,5 @@ package vmsim;
  * @author ModernCyborg
  */
 public class VPT {
-    
+    private PageTableEntry[] table;
 }

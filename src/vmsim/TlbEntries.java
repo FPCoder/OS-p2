@@ -7,8 +7,8 @@ package vmsim;
 
 /**
  *
- * @author ModernCyborg
+ * @author ejones
  */
-public class TLBCache {
-    
+public class TlbEntries extends PageTableEntry {
+    private int vPageNum;
 }

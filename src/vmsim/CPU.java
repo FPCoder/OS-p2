@@ -11,5 +11,5 @@ package vmsim;
  */
 public class CPU {
     private MMU mmu;
-    private TLBCache cache;
+    private TLB tlb;
 }
