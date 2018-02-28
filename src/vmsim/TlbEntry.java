@@ -9,6 +9,6 @@ package vmsim;
  *
  * @author ejones
  */
-public class TlbEntries extends PageTableEntry {
+public class TlbEntry extends PageTableEntry {
     private int vPageNum;
 }

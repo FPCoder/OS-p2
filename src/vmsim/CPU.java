@@ -10,6 +10,7 @@ package vmsim;
  * @author ModernCyborg
  */
 public class CPU {
+    // INST. NOTES: the cpu address width is 16 bits
     private MMU mmu;
     private TLB tlb;
 }

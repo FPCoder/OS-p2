@@ -10,5 +10,5 @@ package vmsim;
  * @author ModernCyborg
  */
 public class MMU {
-    
+    // INST. NOTE: the MMU uses FIFO for replacement algorithm
 }

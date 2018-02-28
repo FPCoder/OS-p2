@@ -10,5 +10,6 @@ package vmsim;
  * @author ModernCyborg
  */
 public class TLB {
-    private TlbEntries[] cache;
+    private int ents = 8; // maximum number of entries in TLB
+    private TlbEntry[] cache = new TlbEntry[ents]; // the TLB contains 8 entries
 }
