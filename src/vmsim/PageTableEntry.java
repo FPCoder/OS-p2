@@ -10,6 +10,7 @@ package vmsim;
  * @author ejones
  */
 public class PageTableEntry {
+    // INST. NOTE: the page offset is 8 bits
     private boolean vbit;
     private boolean rbit;
     private boolean dbit;

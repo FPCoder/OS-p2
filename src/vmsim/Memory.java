@@ -9,6 +9,7 @@ package vmsim;
  *
  */
 public class Memory {
+    // INST. NOTES: address width is 12 bits
     private int[][] RAM;
     
     /**
