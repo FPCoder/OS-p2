@@ -12,46 +12,32 @@ import java.util.Scanner;
 
 /**
  *
- * @author ModernCyborg
  */
 public class CPU {
     // INST. NOTES: the cpu address width is 16 bits
-    private MMU mmu;
-    private TLB tlb;
+	private int addrWidth = 16;
     
-    private void nextEntry(Scanner sc) {
-    	int rw = 0; // read/write
+    public TestEntry nextEntry(Scanner sc) {
+    	int rw = -1; // read/write
+    	String addr = null;
+    	TestEntry ret = new TestEntry();
     	
     	try {
 	    	rw = sc.nextInt();
-	    	if (rw == 0) { // if read
-	    		mmu.read(sc.nextLine());
-	    	}
-	    	else if (rw == 1) { // if write
-	    		mmu.write(sc.nextLine(), sc.nextInt());
-	    	}
-	    	else {
-	    		
+	    	addr = sc.nextLine();
+	    	if (rw == 1) { // if write, read the writeValue
+	    		ret.setWval(sc.nextInt());
 	    	}
     	}
     	catch(NoSuchElementException e) {
     		System.out.println("Error in file reading: next field invalid");
     		e.printStackTrace();
     	}
+    	
+    	ret.setRW(rw);
+    	ret.setAddr(addr);
+    	
+    	return ret;
     }
-    
-    public void readTestFile(String testPath) {
-    	try {
-        	File f = new File(testPath);
-			Scanner sc = new Scanner(f);
-			
-			while (sc.hasNextInt()) { // while file has more to read
-				nextEntry(sc);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-    }
-    
     
 }

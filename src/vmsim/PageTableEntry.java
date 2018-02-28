@@ -15,4 +15,6 @@ public class PageTableEntry {
     private boolean rbit;
     private boolean dbit;
     private int pageFrameNum;
+    
+    public void setDbit(boolean b) { dbit = b; }
 }

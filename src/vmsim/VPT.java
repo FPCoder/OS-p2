@@ -11,4 +11,9 @@ package vmsim;
  */
 public class VPT {
     private PageTableEntry[] table;
+    
+    public void setDbit(int i) {
+    	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
+    	table[i].setDbit(true);
+    }
 }

@@ -12,6 +12,10 @@ public class Memory {
     // INST. NOTES: address width is 12 bits
     private int[][] RAM;
     
+    Memory() {
+    	RAM = new int[8][1024];
+    }
+    
     /**
      * Initializes the cache with 'n' pages. Given page size is 1 KB or 1024 B.
      * @param n number of pages in cache

@@ -22,4 +22,9 @@ public class TLB {
     	
     	return ret;
     }
+
+    public void setDbit(int i) {
+    	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
+    	cache[i].setDbit(true);
+    }
 }

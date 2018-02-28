@@ -11,21 +11,36 @@ package vmsim;
 public class MMU {
 	// NOTE: MMU uses FIFO for replacement
 	// TODO: implement replacement algorithm
+	private VPT vpt = new VPT();
+	private TLB tlb = new TLB();
+	
+	private void setDbit(String vp) {
+		int i = -1;
+		int j = -1;
+		//TODO: convert vp to index in TLB and VPT
+		vpt.setDbit(i);
+		tlb.setDbit(j);
+	}
+	
+	public void processEntry(TestEntry te) {
+		if (te.getRW() == 0) {
+			read(te);
+		}
+	}
     
-	public void read(String vp) {
+	public void read(TestEntry te) {
 		//TODO
 	}
 	
 	/**
 	 * 
-	 * @param vp Virtual Page
-	 * @param writeVal integer value to write to memory
+	 * @param te an individual TestEntry provided by the CPU
 	 */
-	public void write(String vp, int writeVal) {
-		//TODO
-	}
-	
-	public void setDirtyBit(String vp) {
-		
+	public void write(TestEntry te) {
+		setDbit(te.getAddr());
+		// TODO: write value to memory
 	}
 }
+
+
+
