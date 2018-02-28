@@ -10,5 +10,15 @@ package vmsim;
  * @author ModernCyborg
  */
 public class TLB {
-    private TlbEntries[] cache;
+    private TlbEntry[] cache;
+    
+    public int[] getPages() {
+    	int[] ret = new int[cache.length];
+    	
+    	for (int i = 0; i < cache.length; ++i) {
+    		ret[i] = cache[i].getPageNum();
+    	}
+    	
+    	return ret;
+    }
 }

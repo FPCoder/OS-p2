@@ -7,7 +7,6 @@ package vmsim;
 
 /**
  *
- * @author ModernCyborg
  */
 public class Memory {
     private int[][] RAM;

@@ -7,8 +7,24 @@ package vmsim;
 
 /**
  *
- * @author ModernCyborg
  */
 public class OS {
+	private CircularLinkedList clockList;
     
+	public void evict(PageTableEntry pte) {
+		
+	}
+	public void load(PageTableEntry pte) {
+		
+	}
+	public void write(PageTableEntry pte) {
+		
+	}
+	
+	/**
+	 * Needs to select the correct page to evict based on the clock.
+	 */
+	public void clockReplace() {
+		
+	}
 }
