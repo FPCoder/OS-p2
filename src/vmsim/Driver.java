@@ -13,29 +13,16 @@ import java.util.Scanner;
  *
  */
 public class Driver {
-	private OS os = new OS();
-	private CPU cpu = new CPU();
-	private Memory mem = new Memory(); // TODO: set number of pages as param
-	private MMU mmu = new MMU();
 	private TLB tlb = new TLB();
 	private VPT vpt = new VPT();
+	private OS os = new OS();
+	private Memory mem = new Memory(); // TODO: set number of pages as param
+	private MMU mmu = new MMU(vpt, tlb);
+	private CPU cpu = new CPU(mmu);
 	
-    public void readTestFile(String testPath) {
-    	try {
-        	File f = new File(testPath);
-			Scanner sc = new Scanner(f);
-			
-			while (sc.hasNextInt()) { // while file has more to read
-				mmu.processEntry(cpu.nextEntry(sc));
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-    }
-    
 	
 	public void run(String filePath) {
-		readTestFile(filePath);
+		cpu.readTestFile(filePath);
 		
 		//TODO
 	}

@@ -11,15 +11,29 @@ package vmsim;
 public class MMU {
 	// NOTE: MMU uses FIFO for replacement
 	// TODO: implement replacement algorithm
-	private VPT vpt = new VPT();
-	private TLB tlb = new TLB();
+	private VPT vpt;
+	private TLB tlb;
+	
+	MMU(VPT v, TLB t) {
+		vpt = v;
+		tlb = t;
+	}
 	
 	private void setDbit(String vp) {
-		int i = -1;
-		int j = -1;
 		//TODO: convert vp to index in TLB and VPT
-		vpt.setDbit(i);
-		tlb.setDbit(j);
+		vpt.setDbit(indexVPT(vp));
+		tlb.setDbit(indexTLB(vp));
+	}
+	private void setRbit(String vp) {
+		//TODO
+		vpt.setRbit(indexVPT(vp));
+		tlb.setRbit(indexTLB(vp));
+	}
+	private int indexVPT(String str) {
+		//TODO
+	}
+	private int indexTLB(String str) {
+		//TODO
 	}
 	
 	public void processEntry(TestEntry te) {
@@ -29,6 +43,7 @@ public class MMU {
 	}
     
 	public void read(TestEntry te) {
+		setRbit(te.getAddr());
 		//TODO
 	}
 	

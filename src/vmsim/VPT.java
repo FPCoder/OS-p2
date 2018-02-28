@@ -16,4 +16,8 @@ public class VPT {
     	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
     	table[i].setDbit(true);
     }
+    public void setRbit(int i) {
+    	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
+    	table[i].setRbit(true);
+    }
 }

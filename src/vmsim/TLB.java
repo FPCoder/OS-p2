@@ -27,4 +27,8 @@ public class TLB {
     	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
     	cache[i].setDbit(true);
     }
+    public void setRbit(int i) {
+    	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
+    	cache[i].setRbit(true);
+    }
 }

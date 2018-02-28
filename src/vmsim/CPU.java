@@ -16,6 +16,11 @@ import java.util.Scanner;
 public class CPU {
     // INST. NOTES: the cpu address width is 16 bits
 	private int addrWidth = 16;
+	private MMU mmu;
+	
+	CPU(MMU m) {
+		mmu = m;
+	}
     
     public TestEntry nextEntry(Scanner sc) {
     	int rw = -1; // read/write
@@ -39,5 +44,17 @@ public class CPU {
     	
     	return ret;
     }
-    
+
+    public void readTestFile(String testPath) {
+    	try {
+        	File f = new File(testPath);
+			Scanner sc = new Scanner(f);
+			
+			while (sc.hasNextInt()) { // while file has more to read
+				mmu.processEntry(nextEntry(sc));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+    }
 }
