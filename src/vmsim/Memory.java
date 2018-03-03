@@ -8,6 +8,13 @@ package vmsim;
 /**
  * The TLB and VPT reference pages stored here. Interfacing should be very simple,
  * only set and get. Other objects should do more complex calculations.
+ * 
+ * INST: Physical memory will be a two-dimensional array to simulate the page-frame # and 
+ * the page of byte-addressable, byte-sized data. For instance, if physical memory can 
+ * hold 16 pages of data and each page is 1kB, then you would have a 2d array like: 
+ * ram[16][1024]. Read further to determine what values you must use in your simulator. 
+ * In each byte of ram you will store an integer value (yes, an int is typically larger 
+ * than a byte but this will make the project simpler).
  */
 public class Memory {
 	//FIXME: is this the correct # of pages?

@@ -7,7 +7,6 @@ package vmsim;
 
 /**
  *
- * @author ModernCyborg
  */
 public class TLB {
 	private int ents = 8; // maximum number of entries in TLB

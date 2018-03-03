@@ -1,42 +1,23 @@
 package vmsim;
 
 /**
- * The ... requires using a Cirluar Linked List to track ... and since we can't
- * use default utilities, we have to make the class ourselves.
- *
+ * The OS requires using a CircularLinkedList to determine which page to evict,
+ * and since we can't use default utilities, we have to make the class ourselves.
+ * Adds new entries to the tail (head - 1).
  */
 public class CircularLinkedList {
 	private int[] vpages;
 	private int head = -1; // head is the 1st item in the list
+	private int tail = -1;
+	private int n = 0; // number of valid entries
 	
-	CircularLinkedList(TLB tlb) {
-		vpages = tlb.getPages();
-	}
-	
-	public void setPages(TLB tlb) {
-		vpages = tlb.getPages();
-	}
-	
-	/**
-	 * Retrieve the next TLB in the list
-	 * @return
-	 */
-	public Integer getNext() {
-		if (head > vpages.length || head < 0) {
-			return null;
-		}
+	CircularLinkedList() {
+		vpages = new int[10];
 	}
 	
 	public void addPage(TLB tlb) {
-		
-	}
-	
-	public int getPage(int i) throws ArrayIndexOutOfBoundsException {
-		if (i > vpages.length || i < 0) {
-			throw new ArrayIndexOutOfBoundsException();
-		}
-		else {
-			return vpages[i];
-		}
+		//TODO:
 	}
 }
+
+

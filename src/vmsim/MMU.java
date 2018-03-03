@@ -48,19 +48,30 @@ public class MMU {
 		//TODO
 	}
 	
+	/**
+	 * A single function the CPU can call to fulfill the instructions of a single
+	 * entry from a test_file.
+	 * @param te the next TestEntry from file
+	 */
 	public void processEntry(TestEntry te) {
 		if (te.getRW() == 0) {
 			read(te);
 		}
 	}
     
+	/**
+	 * Find the contents of the given address and print the int to the console.
+	 * Should trap to OS on soft/hard miss.
+	 * @param te an individual TestEntry provided by the CPU
+	 */
 	public void read(TestEntry te) {
 		setRbit(te.getAddr());
 		//TODO
 	}
 	
 	/**
-	 * 
+	 * Change the contents of the file of the address given in TestEntry. Should trap
+	 * to OS on soft/hard miss.
 	 * @param te an individual TestEntry provided by the CPU
 	 */
 	public void write(TestEntry te) {

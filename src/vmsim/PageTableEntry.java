@@ -6,15 +6,18 @@
 package vmsim;
 
 /**
- *
- * @author ejones
+ * An entry for the Virtual Page Table.
+ * 
+ * INST: The page table will be an array of PageTableEntries (so the page table will be 
+ * a one-dimensional array). You will use the virtual page number (V-Page#) as the index 
+ * to the elements of this array.
  */
 public class PageTableEntry {
     // INST. NOTE: the page offset is 8 bits
-    private boolean vbit;
-    private boolean rbit;
-    private boolean dbit;
-    private int pageFrameNum;
+    private boolean vbit; // valid bit
+    private boolean rbit; // referenced bit
+    private boolean dbit; // dirty bit
+    private int pageFrameNum; // address in memory
     
     public void setDbit(boolean d) { dbit = d; }
     public void setRbit(boolean r) { rbit = r; }
