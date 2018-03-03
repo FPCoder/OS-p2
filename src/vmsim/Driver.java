@@ -20,6 +20,9 @@ public class Driver {
 	private MMU mmu = new MMU(vpt, tlb);
 	private CPU cpu = new CPU(mmu);
 	
+	private void generateWorkingSet() {
+		//TODO: copy the contents of the test_file to the working set for modification.
+	}
 	
 	public void run(String filePath) {
 		cpu.readTestFile(filePath);

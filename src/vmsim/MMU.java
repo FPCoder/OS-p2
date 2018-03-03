@@ -29,9 +29,21 @@ public class MMU {
 		vpt.setRbit(indexVPT(vp));
 		tlb.setRbit(indexTLB(vp));
 	}
+	
+	/**
+	 * Take the address given by a TestEntry, and return its index in the VPT.
+	 * @param str address from test_file
+	 * @return index in VPT
+	 */
 	private int indexVPT(String str) {
 		//TODO
 	}
+	
+	/**
+	 * Take the address given by a TestEntry, and return its index in the TLB.
+	 * @param str address from test_file
+	 * @return index in TLB
+	 */
 	private int indexTLB(String str) {
 		//TODO
 	}

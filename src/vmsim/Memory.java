@@ -6,14 +6,16 @@
 package vmsim;
 
 /**
- *
+ * The TLB and VPT reference pages stored here. Interfacing should be very simple,
+ * only set and get. Other objects should do more complex calculations.
  */
 public class Memory {
-    // INST. NOTES: address width is 12 bits
+	//FIXME: is this the correct # of pages?
+    private int numPages = 4; // INST. NOTES: address width is 12 bits
     private int[][] RAM;
     
     Memory() {
-    	RAM = new int[8][1024];
+    	RAM = new int[numPages][1024];
     }
     
     /**
@@ -22,5 +24,12 @@ public class Memory {
      */
     Memory(int n) {
         RAM = new int[n][1024];
+    }
+    
+    public int[] getPage(int i) {
+    	return RAM[i];
+    }
+    public void setPage(int[] i) {
+    	
     }
 }
