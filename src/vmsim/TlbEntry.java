@@ -17,5 +17,5 @@ package vmsim;
 public class TlbEntry extends PageTableEntry {
     private int vPageNum; 
     
-    public int getPageNum() { return vPageNum; }
+    public int getVnum() { return vPageNum; }
 }

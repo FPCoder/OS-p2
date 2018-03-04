@@ -15,12 +15,22 @@ public class OS {
      * the OS resets the r-bit every 20 instuctions
      */
 	private CircularLinkedList clockList;
-	private int PC; // program counter, used to track number of instructions
+	private Clock c = new Clock();
+	private int instCount; //current instruction number
+	private MMU mmu;
+	private TLB tlb;
+	private VPT vpt;
+	
+	OS(MMU m, TLB t, VPT v) {
+		mmu = m;
+		tlb = t;
+		vpt = v;
+	}
     
-	public void evict(PageTableEntry pte) {
+	private void evict(PageTableEntry pte) {
 		
 	}
-	public void load(PageTableEntry pte) {
+	public void read(PageTableEntry pte) {
 		
 	}
 	public void write(PageTableEntry pte) {
@@ -33,4 +43,15 @@ public class OS {
 	public void clockReplace() {
 		
 	}
+	
+	public void advanceTime() {
+		c.tick();
+	}
+	
+	public void restRbits() {
+		
+	}
 }
+
+
+

@@ -35,7 +35,7 @@ public class MMU {
 	 * @param str address from test_file
 	 * @return index in VPT
 	 */
-	private int indexVPT(String str) {
+	public int indexVPT(String str) {
 		//TODO
 		return 0;
 	}
@@ -45,7 +45,7 @@ public class MMU {
 	 * @param str address from test_file
 	 * @return index in TLB
 	 */
-	private int indexTLB(String str) {
+	public int indexTLB(String str) {
 		//TODO
 		return 0;
 	}
