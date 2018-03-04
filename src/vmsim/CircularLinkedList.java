@@ -5,18 +5,28 @@ package vmsim;
  * and since we can't use default utilities, we have to make the class ourselves.
  * Adds new entries to the tail (head - 1).
  */
-public class CircularLinkedList {
-	private int[] vpages;
-	private int head = -1; // head is the 1st item in the list
-	private int tail = -1;
-	private int n = 0; // number of valid entries
+public class CircularLinkedList<T> {
+	private final Object[] nodes;
+	private int current_index = 0;
 	
-	CircularLinkedList() {
-		vpages = new int[10];
+	CircularLinkedList (int items) {
+		this.nodes = new Object[items];
 	}
-	
-	public void addPage(TLB tlb) {
-		//TODO:
+
+	public void add (T element) {
+		this.nodes[this.current_index] = element;
+	}
+
+	public T current () {
+		@SuppressWarnings("unchecked")		
+		final T e = (T) this.nodes[this.current_index];
+		return e;
+	}
+
+	public T next () {
+		this.current_index++;
+		this.current_index %= this.nodes.length;
+		return this.current();
 	}
 }
 
