@@ -16,7 +16,7 @@ public class TLB {
     	int[] ret = new int[ents];
     	
     	for (int i = 0; i < ents; ++i) {
-    		ret[i] = cache[i].getPageNum();
+    		ret[i] = cache[i].getVnum();
     	}
     	
     	return ret;
