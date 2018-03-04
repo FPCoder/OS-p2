@@ -21,6 +21,15 @@ public class TLB {
     	
     	return ret;
     }
+    
+    public TlbEntry getEntry(String addr) throws EvictException {
+    	for (int i = 0; i < ents; ++i) {
+    		if (cache[i].getFrameNum() == addr) {
+    			return cache[i];
+    		}
+    	}
+    	throw new EvictException(); //if entry not in tlb, throw exception
+    }
 
     public void setDbit(int i) {
     	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }

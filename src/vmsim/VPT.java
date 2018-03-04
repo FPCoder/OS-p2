@@ -19,4 +19,8 @@ public class VPT {
     	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
     	table[i].setRbit(true);
     }
+    
+    public PageTableEntry getEntry(int i) {
+    	return table[i];
+    }
 }

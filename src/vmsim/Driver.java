@@ -18,7 +18,7 @@ public class Driver {
 	private static VPT vpt = new VPT();
 	private static Memory mem = new Memory(); // TODO: set number of pages as param
 	private static MMU mmu = new MMU(vpt, tlb);
-	private static OS os = new OS(mmu, tlb, vpt);
+	private static OS os = new OS(mmu, tlb, vpt, mem);
 	private static CPU cpu = new CPU(mmu);
 	
 	private static String generateWorkingSet(String file_path) throws Exception {
