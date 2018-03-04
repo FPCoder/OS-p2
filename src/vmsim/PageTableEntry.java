@@ -19,6 +19,11 @@ public class PageTableEntry {
     private boolean dbit; // dirty bit
     private int pageFrameNum; // address in memory
     
+    public boolean isDirty() { return dbit; }
+    public boolean isReferenced() { return rbit; }
+    public boolean isValid() { return vbit; }
+    public int getFrameNum() { return pageFrameNum; }
+    
     public void setDbit(boolean d) { dbit = d; }
     public void setRbit(boolean r) { rbit = r; }
 }

@@ -15,9 +15,9 @@ import java.util.Scanner;
 public class Driver {
 	private TLB tlb = new TLB();
 	private VPT vpt = new VPT();
-	private OS os = new OS();
 	private Memory mem = new Memory(); // TODO: set number of pages as param
 	private MMU mmu = new MMU(vpt, tlb);
+	private OS os = new OS(mmu, tlb, vpt);
 	private CPU cpu = new CPU(mmu);
 	
 	private void generateWorkingSet() {
