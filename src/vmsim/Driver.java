@@ -7,6 +7,7 @@ package vmsim;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 /**
@@ -20,23 +21,40 @@ public class Driver {
 	private MMU mmu = new MMU(vpt, tlb);
 	private CPU cpu = new CPU(mmu);
 	
-	private void generateWorkingSet() {
+	private static String generateWorkingSet(String file_path) {
 		//TODO: copy the contents of the test_file to the working set for modification.
+		File file = new File(file_path);
+		if (!file.isFile()) {
+			throw new Exception("Error: Invalid file location. Parameter must be a file, not a directory.");
+			exit(1);
+		}
+
+		int dot_index = file_path.lastIndexOf('.');
+		String new_file_path = file_path.substring(0, dot_index) + "-ws" + file_path.substring(dot_index);
+		File new_file = new File(new_file_path);
+		Files.copy(file.toPath(), new_file.toPath());
+		return new_file_path;
 	}
 	
-	public void run(String filePath) {
+	public static void run(String filePath) {
 		cpu.readTestFile(filePath);
 		
 		//TODO
 	}
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-    }
-    
+	/**
+		* @param args the command line arguments
+		*/
+	public static void main(String[] args) {
+		// Check that parameters are valid
+		if (args.length == 1) {
+			String working_set = generateWorkingSet(args[0]);
+			run(working_set);
+		} else {
+			throw new Exception("Error: First argument must be test file path populated with virtual memory addresses.");
+			exit(1);
+		}
+	}
 
 	private static String csv_address;
 	private static String csv_rw;
