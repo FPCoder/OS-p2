@@ -18,4 +18,5 @@ public class TlbEntry extends PageTableEntry {
     private int vPageNum; 
     
     public int getVnum() { return vPageNum; }
+    public void setVnum(int vNum) { vPageNum = vNum; }
 }
