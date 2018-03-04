@@ -37,6 +37,7 @@ public class MMU {
 	 */
 	private int indexVPT(String str) {
 		//TODO
+		return 0;
 	}
 	
 	/**
@@ -46,6 +47,7 @@ public class MMU {
 	 */
 	private int indexTLB(String str) {
 		//TODO
+		return 0;
 	}
 	
 	/**
