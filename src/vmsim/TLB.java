@@ -28,7 +28,7 @@ public class TLB {
     			return cache[i];
     		}
     	}
-    	throw new EvictException(); //if entry not in tlb, throw exception
+    	throw new EvictException("soft"); //if entry not in tlb, throw exception(soft)
     }
 
     public void setDbit(int i) {

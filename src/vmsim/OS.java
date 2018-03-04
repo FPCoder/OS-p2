@@ -23,13 +23,13 @@ public class OS {
 	private MMU mmu;
 	private TLB tlb;
 	private VPT vpt;
-	private Memory ram;
+	private Memory mem;
 	
-	OS(MMU m, TLB t, VPT v, Memory mem) {
+	OS(MMU m, TLB t, VPT v, Memory me) {
 		mmu = m;
 		tlb = t;
 		vpt = v;
-		ram = mem;
+		mem = me;
 	}
     
 	public void evict() {

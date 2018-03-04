@@ -9,7 +9,13 @@ package vmsim;
  *
  */
 public class VPT {
+    // 16bits(address width) - 8bits (page offset) = 8bits(addressable locations in VPT)
+    private int size = 256;
     private PageTableEntry[] table;
+    
+    VPT() {
+    	table = new PageTableEntry[size];
+    }
     
     public void setDbit(int i) {
     	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
