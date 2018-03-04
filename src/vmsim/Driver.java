@@ -37,4 +37,72 @@ public class Driver {
         
     }
     
+
+	private static String csv_address;
+	private static String csv_rw;
+	private static String csv_value;
+	private static String csv_soft;
+	private static String csv_hard;
+	private static String csv_hit;
+	private static String csv_evicted_page_number;
+	private static String csv_dirty_evicted_page;
+
+	public static void outputAddress (String address) {
+		csv_address = address;
+		output();
+	}
+	public static void outputRW (int rw) {
+		csv_rw = rw;
+		output();
+	}
+	public static void outputValue (String value) {
+		csv_value = value;
+		output();
+	}
+	public static void outputSoft (boolean soft) {
+		csv_soft = soft;
+		output();
+	}
+	public static void outputHard (boolean hard) {
+		csv_hard = hard;
+		output();
+	}
+	public static void outputHit (boolean hit) {
+		csv_hit = hit;
+		output();
+	}
+	public static void outputEvictedPageNumber (int evicted_page_number) {
+		csv_evicted_page_number = evicted_page_number;
+		output();
+	}
+	public static void outputDirtyEvictedPage (int dirty_evicted_page) {
+		csv_dirty_evicted_page = dirty_evicted_page;
+		output();
+	}
+	private static void outputHeader () {
+		System.out.println("Address, r/w, value, soft, hard, hit, evicted_pg#, dirty_evicted_page");
+	}
+	private static void output () {
+		if (
+			csv_address != null &&
+			csv_rw != null &&
+			csv_value != null &&
+			csv_soft != null &&
+			csv_hard != null &&
+			csv_hit != null &&
+			csv_evicted_page_number != null &&
+			csv_dirty_evicted_page != null
+		) {
+			System.out.printf("%7s, %3s, %5s, %4s, %4s, %3s, %11s, %18s", csv_address, csv_rw, csv_value, csv_soft, csv_hard, csv_hit, csv_evicted_page_number, csv_dirty_evicted_page);
+			csv_address = null;
+			csv_rw = null;
+			csv_value = null;
+			csv_soft = null;
+			csv_hard = null;
+			csv_hit = null;
+			csv_evicted_page_number = null;
+			csv_dirty_evicted_page = null;
+		}
+	}
+
 }
