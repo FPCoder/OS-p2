@@ -14,19 +14,18 @@ import java.util.Scanner;
  *
  */
 public class Driver {
-	private TLB tlb = new TLB();
-	private VPT vpt = new VPT();
-	private Memory mem = new Memory(); // TODO: set number of pages as param
-	private MMU mmu = new MMU(vpt, tlb);
-	private OS os = new OS(mmu, tlb, vpt);
-	private CPU cpu = new CPU(mmu);
+	private static TLB tlb = new TLB();
+	private static VPT vpt = new VPT();
+	private static OS os = new OS();
+	private static Memory mem = new Memory(); // TODO: set number of pages as param
+	private static MMU mmu = new MMU(vpt, tlb);
+	private static CPU cpu = new CPU(mmu);
 	
-	private static String generateWorkingSet(String file_path) {
+	private static String generateWorkingSet(String file_path) throws Exception {
 		//TODO: copy the contents of the test_file to the working set for modification.
 		File file = new File(file_path);
 		if (!file.isFile()) {
 			throw new Exception("Error: Invalid file location. Parameter must be a file, not a directory.");
-			exit(1);
 		}
 
 		int dot_index = file_path.lastIndexOf('.');
@@ -45,14 +44,14 @@ public class Driver {
 	/**
 		* @param args the command line arguments
 		*/
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// Check that parameters are valid
 		if (args.length == 1) {
 			String working_set = generateWorkingSet(args[0]);
 			run(working_set);
+			outputHeader();
 		} else {
 			throw new Exception("Error: First argument must be test file path populated with virtual memory addresses.");
-			exit(1);
 		}
 	}
 
@@ -70,7 +69,7 @@ public class Driver {
 		output();
 	}
 	public static void outputRW (int rw) {
-		csv_rw = rw;
+		csv_rw = rw + "";
 		output();
 	}
 	public static void outputValue (String value) {
@@ -78,23 +77,23 @@ public class Driver {
 		output();
 	}
 	public static void outputSoft (boolean soft) {
-		csv_soft = soft;
+		csv_soft = soft + "";
 		output();
 	}
 	public static void outputHard (boolean hard) {
-		csv_hard = hard;
+		csv_hard = hard + "";
 		output();
 	}
 	public static void outputHit (boolean hit) {
-		csv_hit = hit;
+		csv_hit = hit + "";
 		output();
 	}
 	public static void outputEvictedPageNumber (int evicted_page_number) {
-		csv_evicted_page_number = evicted_page_number;
+		csv_evicted_page_number = evicted_page_number + "";
 		output();
 	}
 	public static void outputDirtyEvictedPage (int dirty_evicted_page) {
-		csv_dirty_evicted_page = dirty_evicted_page;
+		csv_dirty_evicted_page = dirty_evicted_page + "";
 		output();
 	}
 	private static void outputHeader () {
