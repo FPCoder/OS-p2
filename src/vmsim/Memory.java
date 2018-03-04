@@ -17,26 +17,19 @@ package vmsim;
  * than a byte but this will make the project simpler).
  */
 public class Memory {
-	//FIXME: is this the correct # of pages?
-    private int numPages = 4; // INST. NOTES: address width is 12 bits
-    private int[][] RAM;
+	// 12bits (address width) - 8bits (page offset) = 4bits (page address width)
+    private int numPages = 16; // INST. NOTES: address width is 12 bits
+    private int pageSize = 256;
+    private int[][] ram;
     
     Memory() {
-    	RAM = new int[numPages][1024];
-    }
-    
-    /**
-     * Initializes the cache with 'n' pages. Given page size is 1 KB or 1024 B.
-     * @param n number of pages in cache
-     */
-    Memory(int n) {
-        RAM = new int[n][1024];
+    	ram = new int[numPages][pageSize];
     }
     
     public int[] getPage(int i) {
-    	return RAM[i];
+    	return ram[i];
     }
-    public void setPage(int[] i) {
-    	
+    public void setPage(int i, int[] pg) {
+    	ram[i] = pg;
     }
 }
