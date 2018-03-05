@@ -34,8 +34,19 @@ public class OS {
 		mem = me;
 	}
 	
+	// Implements the Clock Replacement Algorithm
 	private static PageTableEntry nextEvict() {
-		//TODO
+		// Try to find an entry in the clock who is not referenced
+		for (int i = 0; i < 5; i++) {
+			if (!clockList.current().isReferenced()) {
+				return clockList.current();
+			} else {
+				clockList.current().setRbit(false);
+				clockList.next();
+			}
+		}
+		// If all five entries are referenced, return the next one regardless
+		return clockList.current();
 	}
     
 	/**
