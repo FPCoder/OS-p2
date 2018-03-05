@@ -9,13 +9,6 @@ package vmsim;
  *
  */
 public class MMU {
-	private VPT vpt;
-	private TLB tlb;
-	
-	public MMU(VPT v, TLB t) {
-		vpt = v;
-		tlb = t;
-	}
 	
 	private static void setDbit(PageTableEntry vpt_entry , TlbEntry tlb_entry) {
 		vpt_entry.setDbit(true);
