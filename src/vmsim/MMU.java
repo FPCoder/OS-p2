@@ -49,11 +49,29 @@ public class MMU {
 			status++;
 		}
 		
-		if(status == 2) {
-			//send hard miss to cpu
+		checkMiss(status , vp_index , entry);
+	}
+	
+	private void checkMiss(int status , int vp_index , PageTableEntry entry) {
+		if( status == 0 ) {
+			hit(entry);
 		}else if(status == 1) {
-			tlb.add(vp_index , entry);
+			softMiss(vp_index);
+		}else {
+			hardMiss();
 		}
+	}
+	
+	private void hardMiss() {
+		
+	}
+	
+	private void softMiss(int vp_index) {
+		tlb.add(vp_index , vpt.findInVPT(vp_index));
+	}
+	
+	private void hit(PageTableEntry entry) {
+		
 	}
 	
 	/*/**

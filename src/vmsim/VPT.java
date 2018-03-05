@@ -29,6 +29,11 @@ public class VPT {
     	return table[vp_num];
     }
     
+    public void addToVPT(int vp_index , PageTableEntry entry) {
+    	if(vp_index < 0 || vp_index > table.length) {throw new IndexOutOfBoundsException();}
+    	table[vp_index] = entry;
+    }
+    
     public void setDbit(int i) {
     	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
     	table[i].setDbit(true);
