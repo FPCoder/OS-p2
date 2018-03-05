@@ -10,11 +10,11 @@ package vmsim;
  */
 public class VPT {
     // 16bits(address width) - 8bits (page offset) = 8bits(addressable locations in VPT)
-    private static int size = 256;
     private static PageTableEntry[] table;
+    public final static int SIZE = 256;
     
     VPT() {
-    	table = new PageTableEntry[size];
+    	table = new PageTableEntry[SIZE];
     	for(PageTableEntry entry : table) {
     		entry = null;
     	}

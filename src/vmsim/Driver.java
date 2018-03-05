@@ -7,8 +7,12 @@ package vmsim;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  *
@@ -21,18 +25,62 @@ public class Driver {
 	private static OS os = new OS();
 	private static CPU cpu = new CPU(mmu);
 
-	private static String generateWorkingSet(String file_path) throws Exception {
-		//TODO: copy the contents of the test_file to the working set for modification.
-		File file = new File(file_path);
-		if (!file.isFile()) {
-			throw new Exception("Error: Invalid file location. Parameter must be a file, not a directory.");
+	public static void copyFolder(File src, File dest) throws IOException {
+		if (src.isDirectory()) {
+			// if directory not exists, create it
+			if (!dest.exists()) {
+				dest.mkdir();
+				System.out.println("Directory copied from " + src + "  to " + dest);
+			}
+
+			// list all the directory contents
+			String files[] = src.list();
+
+			for (String file : files) {
+				// construct the src and dest file structure
+				File srcFile = new File(src, file);
+				File destFile = new File(dest, file);
+				//recursive copy
+				copyFolder(srcFile,destFile);
+			}
+
+		} else {
+			// if file, then copy it
+			// Use bytes stream to support all file types
+			InputStream in = new FileInputStream(src);
+			OutputStream out = new FileOutputStream(dest);
+
+			byte[] buffer = new byte[1024];
+
+			int length;
+			//copy the file content in bytes
+			while ((length = in.read(buffer)) > 0) {
+				out.write(buffer, 0, length);
+			}
+
+			in.close();
+			out.close();
+			// System.out.println("File copied from " + src + " to " + dest);
+		}
+	}
+
+	private static String generateWorkingSet(String source) throws Exception {
+		File srcDir = new File(source);
+		String destination = source + "_ws";
+		File destDir = new File(destination);
+		if (!destDir.exists()) {
+			destDir.mkdir();
 		}
 
-		int dot_index = file_path.lastIndexOf('.');
-		String new_file_path = file_path.substring(0, dot_index) + "-ws" + file_path.substring(dot_index);
-		File new_file = new File(new_file_path);
-		Files.copy(file.toPath(), new_file.toPath());
-		return new_file_path;
+		copyFolder(srcDir, destDir);
+
+		return destination;
+
+		// int dot_index = file_path.lastIndexOf('.');
+		// String new_file_path = file_path.substring(0, dot_index) + "-ws" + file_path.substring(dot_index);
+		// File new_file = new File(new_file_path);
+		// Files.copy(file.toPath(), new_file.toPath());
+		// return new_file_path;
 	}
 
 	public static void run(String filePath) {
@@ -46,9 +94,19 @@ public class Driver {
 		*/
 	public static void main(String[] args) throws Exception {
 		// Check that parameters are valid
-		if (args.length == 1) {
-			String working_set = generateWorkingSet(args[0]);
-			run(working_set);
+		if (args.length == 2) {
+			// Verify test file exists
+			if (!(new File(args[0])).isFile()) {
+				throw new Exception("Error: Invalid file location. First parameter must be a file, not a directory.");
+			}
+			if (!(new File(args[1])).isDirectory()) {
+				throw new Exception("Error: Invalid directory. Second parameter must be a directory containing page files.");
+			}
+
+			String page_files_working_set = generateWorkingSet(args[1]);
+			// TODO: Do something with the page files
+
+			run(args[0]);
 			outputHeader();
 		} else {
 			throw new Exception("Error: First argument must be test file path populated with virtual memory addresses.");
