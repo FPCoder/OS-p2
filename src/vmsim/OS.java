@@ -56,8 +56,8 @@ public class OS {
 		return MMU.remove(e);
 	}
 
-	public static void load(TestEntry te) throws FileNotFoundException {
-		String fileAddr = te.getAddr().substring(0, 2);
+	public static void load(String addr) throws FileNotFoundException {
+		String fileAddr = addr.substring(0, 2);
 		FileInputStream fis = new FileInputStream(fileAddr + ".pg");
 		Scanner sc = new Scanner(fis);
 		int[] page = new int[256]; // page being loaded in
@@ -108,6 +108,18 @@ public class OS {
 		}
 		for (int i = 0; i < VPT.SIZE; ++i) {
 			VPT.setRbit(i, false);
+		}
+	}
+	
+	public static void hardmiss(PageTableEntry pte) {
+		try {
+			if (pte.isDirty()) {
+				write(pte);
+			}
+			evict();
+			load(MMU.virtToPhys(pte.getFrameNum()));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	
