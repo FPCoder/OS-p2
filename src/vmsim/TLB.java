@@ -9,21 +9,19 @@ package vmsim;
  *
  */
 public class TLB {
-	private static int ents = 8; // maximum number of entries in TLB
-	private static TlbEntry[] cache = new TlbEntry[ents]; // the TLB contains 8 entries
+	public final static int SIZE = 8; // maximum number of entries in TLB
+	private static TlbEntry[] cache = new TlbEntry[SIZE]; // the TLB contains 8 entries
 	private static int nextEntryPointer = 0;
     
     public static int[] getPages() {
-    	int[] ret = new int[ents];
+    	int[] ret = new int[SIZE];
     	
-    	for (int i = 0; i < ents; ++i) {
+    	for (int i = 0; i < SIZE; ++i) {
     		ret[i] = cache[i].getVnum();
     	}
     	
     	return ret;
     }
-    
-    public static int size() { return ents; }
     
     /**
      * Given a virtual page number, check if it is in the TLB. 
@@ -52,11 +50,11 @@ public class TLB {
     }
 
     public static void setDbit(int i, boolean b) {
-    	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
+    	if (i > SIZE || i < 0) { throw new IndexOutOfBoundsException(); }
     	cache[i].setDbit(b);
     }
     public static void setRbit(int i, boolean b) {
-    	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
+    	if (i > SIZE || i < 0) { throw new IndexOutOfBoundsException(); }
     	cache[i].setRbit(b);
     }
 }
