@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class CPU {
 	private static int addrWidth = 16; // INST. NOTES: the cpu address width is 16 bits
 	private static MMU mmu; // points to the MMU, required as a paramter for init.
-	
+
 	/**
 	 * No default is available, so the class must be declared by passing the
 	 * instance of the MMU the computer is communicating with. Reasoning is the
@@ -29,12 +29,12 @@ public class CPU {
 	CPU(MMU m) {
 		mmu = m;
 	}
-    
+
     public TestEntry nextEntry(Scanner sc) {
     	int rw = -1; // read/write
     	String addr = null; // address referenced by a read/write entry
     	TestEntry ret = new TestEntry(); // Contains all fields of a read/write
-    	
+
     	try {
 	    	rw = sc.nextInt();
 	    	addr = sc.nextLine();
@@ -47,10 +47,10 @@ public class CPU {
     		System.out.println("Error in file reading: next field invalid");
     		e.printStackTrace();
     	}
-    	
+
     	ret.setRW(rw);
     	ret.setAddr(addr);
-    	
+
     	return ret;
     }
 
@@ -63,7 +63,7 @@ public class CPU {
     	try {
         	File f = new File(testPath);
 			Scanner sc = new Scanner(f);
-			
+
 			while (sc.hasNextInt()) { // while file has more to read
 				mmu.processEntry(nextEntry(sc));
 			}
@@ -72,7 +72,3 @@ public class CPU {
 		}
     }
 }
-
-
-
-

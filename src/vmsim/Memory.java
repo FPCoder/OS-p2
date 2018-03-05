@@ -27,12 +27,7 @@ public class Memory {
     }
     
     public static int[] getPage(PageTableEntry pte) {
-		// convert hex address to dec offset
-		return ram[parseIndex(pte)];
-    }
-    
-    public static int parseIndex(PageTableEntry pte) {
-    	return Integer.parseInt(pte.getFrameNum().trim().substring(0, 1), 16);
+		return ram[pte.getFrameNum()];
     }
     
     public static int[] getPage(int i) {
@@ -43,9 +38,10 @@ public class Memory {
     	ram[i] = pg;
     	return ret;
     }
-    public static void remove(PageTableEntry pte) {
+    
+    /*public static void remove(PageTableEntry pte) {
     	ram[parseIndex(pte)] = null;
-    }
+    }*/
 }
 
 

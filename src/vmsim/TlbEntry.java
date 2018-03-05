@@ -14,8 +14,13 @@ package vmsim;
  * lookup. The arrays used to implement the page table and TLB will be arrays of data 
  * structures that represent the tables entries.
  */
-public class TlbEntry extends PageTableEntry {
+public class TlbEntry extends PageTableEntry{
     private int vPageNum; 
+    
+    public TlbEntry(int vp_index , PageTableEntry vp_entry) {
+    	super(vp_entry.isValid() , vp_entry.isDirty() , vp_entry.isReferenced() , vp_entry.getFrameNum());
+    	vPageNum = vp_index;
+    }
     
     public int getVnum() { return vPageNum; }
     public void setVnum(int vNum) { vPageNum = vNum; }

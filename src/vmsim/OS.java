@@ -19,10 +19,11 @@ public class OS {
      * linked list)
      * the OS resets the r-bit every 5 instuctions
      */
-	private static CircularLinkedList clockList;
+	private static CircularLinkedList<PageTableEntry> clockList = new CircularLinkedList(256);
 	private static Clock c = new Clock();
 	private static int instCount; //current instruction number
 	private static int nextReset; //instruction number for resetting r-bits
+	private static int resetFreq = 5;
 	private static MMU mmu;
 	private static TLB tlb;
 	private static VPT vpt;
@@ -61,8 +62,7 @@ public class OS {
 		if (e.isDirty()) {
 			write(e);
 		}
-		Memory.remove(e);
-		MMU.remove(e);
+		return MMU.remove(e);
 	}
 
 	public static void load(TestEntry te) throws FileNotFoundException {
@@ -111,7 +111,7 @@ public class OS {
 		c.tick();
 		if (instCount >= nextReset) {
 			resetRbits();
-			nextReset += 20;
+			nextReset += resetFreq;
 		}
 	}
 	
