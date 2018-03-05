@@ -65,7 +65,11 @@ public class CPU {
 			Scanner sc = new Scanner(f);
 
 			while (sc.hasNextInt()) { // while file has more to read
-				mmu.processEntry(nextEntry(sc));
+				try {
+					mmu.processEntry(nextEntry(sc));
+				} catch (EvictException e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
