@@ -7,6 +7,8 @@ package vmsim;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -17,13 +19,13 @@ public class OS {
      * linked list)
      * the OS resets the r-bit every 5 instuctions
      */
-	private CircularLinkedList clockList;
-	private Clock c = new Clock();
-	private int instCount; //current instruction number
-	private MMU mmu;
-	private TLB tlb;
-	private VPT vpt;
-	private Memory mem;
+	private static CircularLinkedList clockList;
+	private static Clock c = new Clock();
+	private static int instCount; //current instruction number
+	private static MMU mmu;
+	private static TLB tlb;
+	private static VPT vpt;
+	private static Memory mem;
 	
 	OS(MMU m, TLB t, VPT v, Memory me) {
 		mmu = m;
@@ -31,29 +33,64 @@ public class OS {
 		vpt = v;
 		mem = me;
 	}
-    
-	public void evict() {
-		//TODO: evict page based on eviction algorithm
+	
+	private static PageTableEntry nextEvict() {
+		//TODO
 	}
-	public void load(String addr) {
+    
+	/**
+	 * 
+	 * @return index in memory of evicted page
+	 */
+	public static int evict() {
+		//TODO: evict page based on eviction algorithm
+		PageTableEntry e = nextEvict();
+		
+		if (e.isDirty()) {
+			write(e);
+		}
+		Memory.
+	}
+
+	public static void load(TestEntry te) throws FileNotFoundException {
+		String fileAddr = te.getAddr().substring(0, 2);
+		FileInputStream fis = new FileInputStream(fileAddr);
+		Scanner sc = new Scanner(fis);
+		int[] page = new int[256]; // page being loaded in
+		int i = -1; // index to load to
+		/*int offset = Integer.parseInt(te.getAddr().trim(), 16); // convert hex address to dec offset
+		
+		if (te.getRW() == 0) { // is read
+			Driver.outputValue(Integer.toString(page[offset])); //add requested value to output line
+		}
+		else if (te.getRW() == 1) {
+			Driver.outputValue(Integer.toString(page[offset])); //add requested value to output line
+			
+		}*/
+		
+		i = evict();
+		for (int j = 0; j < 256; ++i) {
+			page[j] = sc.nextInt();
+		}
+		Memory.setPage(i, page);
 		
 	}
-	public void write(String addr, int val) {
+	public static void write(PageTableEntry pte) {
 		
 	}
 	
 	/**
 	 * Needs to select the correct page to evict based on the clock.
 	 */
-	public void clockReplace() {
+	public static void clockReplace() {
 		
 	}
 	
-	public void advanceTime() {
+	public static void advanceTime() {
 		c.tick();
 	}
 	
-	public void restRbits() {
+	public static void restRbits() {
 		
 	}
 	

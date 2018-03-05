@@ -9,8 +9,8 @@ package vmsim;
  *
  */
 public class TLB {
-	private int ents = 8; // maximum number of entries in TLB
-	private TlbEntry[] cache = new TlbEntry[ents]; // the TLB contains 8 entries
+	private static int ents = 8; // maximum number of entries in TLB
+	private static TlbEntry[] cache = new TlbEntry[ents]; // the TLB contains 8 entries
     
     public int[] getPages() {
     	int[] ret = new int[ents];
