@@ -21,7 +21,8 @@ public class OS {
      * the OS uses the clock algorithm for page replacement (must use circular linked list)
      * the OS resets the r-bit every 5 instructions
      */
-	private static CircularLinkedList<PageTableEntry> clockList = new CircularLinkedList<PageTableEntry>(256);
+	private static CircularLinkedList<PageTableEntry> clockList = 
+			new CircularLinkedList<PageTableEntry>(16);
 	private static Clock c = new Clock();
 	private static int instCount; //current instruction number
 	private static int nextReset; //instruction number for resetting r-bits
