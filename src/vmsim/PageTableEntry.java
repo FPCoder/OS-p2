@@ -17,12 +17,12 @@ public class PageTableEntry {
     private boolean vbit; // valid bit
     private boolean rbit; // referenced bit
     private boolean dbit; // dirty bit
-    private String pageFrameNum; // address in memory
+    private int pageFrameNum; // address in memory
     
     public boolean isDirty() { return dbit; }
     public boolean isReferenced() { return rbit; }
     public boolean isValid() { return vbit; }
-    public String getFrameNum() { return pageFrameNum; }
+    public int getFrameNum() { return pageFrameNum; }
     
     public void setDbit(boolean d) { dbit = d; }
     public void setRbit(boolean r) { rbit = r; }

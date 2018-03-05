@@ -31,10 +31,23 @@ public class MMU {
 	}
 	
 	/**
+	 * Translates virtual mem address (testEntry address string) to physical mem address
+	 */
+	public void translateVMAToPMA(String vm_address) {
+		int offset = Integer.parseInt(vm_address.substring(2, vm_address.length()) , 16);
+		int vp_index = Integer.parseInt(vm_address.substring(0, 2) , 16);
+		
+		PageTableEntry entry = tlb.findInTLB(vp_index);
+		if(entry == null) {
+			softMiss();
+		}
+	}
+	
+	/*/**
 	 * Take the address given by a TestEntry, and return its index in the VPT.
 	 * @param str address from test_file
 	 * @return index in VPT
-	 */
+	 
 	public int indexVPT(String str) {
 		//TODO
 		return 0;
@@ -44,11 +57,11 @@ public class MMU {
 	 * Take the address given by a TestEntry, and return its index in the TLB.
 	 * @param str address from test_file
 	 * @return index in TLB
-	 */
+	 
 	public int indexTLB(String str) {
 		//TODO
 		return 0;
-	}
+	}*/
 	
 	/**
 	 * A single function the CPU can call to fulfill the instructions of a single
@@ -79,6 +92,10 @@ public class MMU {
 	public void write(TestEntry te) {
 		setDbit(te.getAddr());
 		// TODO: write value to memory
+	}
+	
+	public static void remove(PageTableEntry entry) {
+		
 	}
 }
 

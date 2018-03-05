@@ -22,6 +22,20 @@ public class TLB {
     	return ret;
     }
     
+    /**
+     * Given a virtual page number, check if it is in the TLB. 
+     * Returns TlbEntry if hit, null if miss.
+     */
+    public TlbEntry findInTLB(int vp_num) {
+    	for(int i = 0 ; i < cache.length ; i++) {
+    		if(cache[i].getVnum() == vp_num) {
+    			return cache[i];
+    		}
+    	}
+    	return null;
+    }
+    
+    /*
     public TlbEntry getEntry(String addr) throws EvictException {
     	for (int i = 0; i < ents; ++i) {
     		if (cache[i].getFrameNum() == addr) {
@@ -29,7 +43,7 @@ public class TLB {
     		}
     	}
     	throw new EvictException("soft"); //if entry not in tlb, throw exception(soft)
-    }
+    }*/
 
     public void setDbit(int i) {
     	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
