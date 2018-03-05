@@ -49,7 +49,8 @@ public class OS {
 		if (e.isDirty()) {
 			write(e);
 		}
-		Memory.
+		Memory.remove(e);
+		MMU.remove(e);
 	}
 
 	public static void load(TestEntry te) throws FileNotFoundException {
