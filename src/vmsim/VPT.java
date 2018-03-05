@@ -25,7 +25,7 @@ public class VPT {
      * Returns entry at vp_num index. 
      * If entry doesn't exist yet it will return null. 
      */
-    public PageTableEntry findInVPT(int vp_num) {
+    public static PageTableEntry findInVPT(int vp_num) {
     	return table[vp_num];
     }
     
@@ -40,7 +40,7 @@ public class VPT {
     	table[i].setRbit(b);
     }
     
-    public PageTableEntry getEntry(int i) {
+    public static PageTableEntry getEntry(int i) {
     	return table[i];
     }
 }

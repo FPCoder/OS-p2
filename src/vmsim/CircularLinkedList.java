@@ -8,13 +8,17 @@ package vmsim;
 public class CircularLinkedList<T> {
 	private final Object[] nodes;
 	private int current_index = 0;
+	private int numNodes = 0;
 	
 	CircularLinkedList (int items) {
 		this.nodes = new Object[items];
 	}
+	
+	public int numNodes() { return numNodes; }
 
 	public void add (T element) {
 		this.nodes[this.current_index] = element;
+		numNodes++;
 	}
 
 	public T current () {
