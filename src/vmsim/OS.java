@@ -64,7 +64,7 @@ public class OS {
 		int i = -1; // index to load to
 		
 		i = evict();
-		for (int j = 0; j < 256; ++i) {
+		for (int j = 0; j < VPT.SIZE; ++i) {
 			page[j] = sc.nextInt();
 		}
 		Memory.setPage(i, page);
@@ -82,7 +82,7 @@ public class OS {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
 			try {
-				for (int i = 0; i < 256; i++) {
+				for (int i = 0; i < VPT.SIZE; i++) {
 					bw.newLine();
 					bw.write(page[i]);
 				}
@@ -90,7 +90,7 @@ public class OS {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		 
+			pte.setDbit(false); // reset d-bit because contents are now consistent with hard-disk
 		}
 	}
 	
@@ -103,10 +103,10 @@ public class OS {
 	}
 	
 	public static void resetRbits() {
-		for (int i = 0; i < TLB.size(); ++i) {
+		for (int i = 0; i < TLB.SIZE; ++i) {
 			TLB.setRbit(i, false);
 		}
-		for (int i = 0; i < VPT.size(); ++i) {
+		for (int i = 0; i < VPT.SIZE; ++i) {
 			VPT.setRbit(i, false);
 		}
 	}
@@ -118,7 +118,7 @@ public class OS {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("success");
+        System.out.println("fin");
     }
 }
 
