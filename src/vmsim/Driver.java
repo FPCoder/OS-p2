@@ -20,7 +20,7 @@ public class Driver {
 	private static MMU mmu = new MMU(vpt, tlb);
 	private static OS os = new OS(mmu, tlb, vpt, mem);
 	private static CPU cpu = new CPU(mmu);
-	
+
 	private static String generateWorkingSet(String file_path) throws Exception {
 		//TODO: copy the contents of the test_file to the working set for modification.
 		File file = new File(file_path);
@@ -34,10 +34,10 @@ public class Driver {
 		Files.copy(file.toPath(), new_file.toPath());
 		return new_file_path;
 	}
-	
+
 	public static void run(String filePath) {
 		cpu.readTestFile(filePath);
-		
+
 		//TODO
 	}
 
