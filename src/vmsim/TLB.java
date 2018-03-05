@@ -11,9 +11,9 @@ package vmsim;
 public class TLB {
 	private static int ents = 8; // maximum number of entries in TLB
 	private static TlbEntry[] cache = new TlbEntry[ents]; // the TLB contains 8 entries
-	private int nextEntryPointer = 0;
+	private static int nextEntryPointer = 0;
     
-    public int[] getPages() {
+    public static int[] getPages() {
     	int[] ret = new int[ents];
     	
     	for (int i = 0; i < ents; ++i) {
@@ -23,12 +23,14 @@ public class TLB {
     	return ret;
     }
     
+    public static int size() { return ents; }
+    
     /**
      * Given a virtual page number, check if it is in the TLB. 
      * Returns TlbEntry if hit, null if miss.
      * @throws EvictException 
      */
-    public TlbEntry findInTLB(int vp_num) throws EvictException {
+    public static TlbEntry findInTLB(int vp_num) throws EvictException {
     	for(int i = 0 ; i < cache.length ; i++) {
     		if(cache[i].getVnum() == vp_num) {
     			return cache[i];
@@ -38,33 +40,23 @@ public class TLB {
     	//return null;
     }
     
-    public void add(int vpt_index , PageTableEntry entry) {
+    public static void add(int vpt_index , PageTableEntry entry) {
 		cache[nextEntryPointer] = new TlbEntry(vpt_index , entry);
 	}
     
-    private void incrementNextEntryPointer() {
+    private static void incrementNextEntryPointer() {
     	nextEntryPointer++;
     	if(nextEntryPointer >= cache.length) {
     		nextEntryPointer = 0;
     	}
     }
-    
-    /*
-    public TlbEntry getEntry(String addr) throws EvictException {
-    	for (int i = 0; i < ents; ++i) {
-    		if (cache[i].getFrameNum() == addr) {
-    			return cache[i];
-    		}
-    	}
-    	throw new EvictException("soft"); //if entry not in tlb, throw exception(soft)
-    }*/
 
-    public void setDbit(int i) {
+    public static void setDbit(int i, boolean b) {
     	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
-    	cache[i].setDbit(true);
+    	cache[i].setDbit(b);
     }
-    public void setRbit(int i) {
+    public static void setRbit(int i, boolean b) {
     	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
-    	cache[i].setRbit(true);
+    	cache[i].setRbit(b);
     }
 }
