@@ -9,18 +9,45 @@ package vmsim;
  *
  */
 public class MMU {
-	// NOTE: MMU uses FIFO for replacement
-	// TODO: implement replacement algorithm
+	private VPT vpt;
+	private TLB tlb;
 	
-	private static void setDbit(String vp) {
-		//TODO: convert vp to index in TLB and VPT
-		//vpt.setDbit(indexVPT(vp));
-		//tlb.setDbit(indexTLB(vp));
+	public MMU(VPT v, TLB t) {
+		vpt = v;
+		tlb = t;
 	}
-	private static void setRbit(String vp) {
-		//TODO
-		//vpt.setRbit(indexVPT(vp));
-		//tlb.setRbit(indexTLB(vp));
+	
+	private static void setDbit(PageTableEntry vpt_entry , TlbEntry tlb_entry) {
+		vpt_entry.setDbit(true);
+		tlb_entry.setDbit(true);
+	}
+	private static void setRbit(PageTableEntry vpt_entry , TlbEntry tlb_entry) {
+		vpt_entry.setRbit(true);
+		tlb_entry.setRbit(true);
+	}
+	
+	
+	/**
+	 * Find the contents of the given address and print the int to the console.
+	 * Should trap to OS on soft/hard miss.
+	 * @param te an individual TestEntry provided by the CPU
+	 * @throws EvictException 
+	 */
+	public void read(TestEntry te) throws EvictException {
+		String physAdd = translateVMAToPMA(te.getAddr());
+		
+
+		
+	}
+	
+	/**
+	 * Change the contents of the file of the address given in TestEntry. Should trap
+	 * to OS on soft/hard miss.
+	 * @param te an individual TestEntry provided by the CPU
+	 */
+	public static void write(TestEntry te) {
+		//setDbit(te.getAddr());
+		// TODO: write value to memory
 	}
 	
 	/**
@@ -28,8 +55,8 @@ public class MMU {
 	 * Status: 0=hit ; 1=softMiss ; 2=hardMiss
 	 * @throws EvictException 
 	 */
-	public static void translateVMAToPMA(String vm_address) throws EvictException {
-		int offset = Integer.parseInt(vm_address.substring(2, vm_address.length()) , 16);
+	public String translateVMAToPMA(String vm_address) throws EvictException {
+		String offset = vm_address.substring(2, vm_address.length());
 		int vp_index = Integer.parseInt(vm_address.substring(0, 2) , 16);
 		int status = 0;
 		
@@ -42,29 +69,41 @@ public class MMU {
 			status++;
 		}
 		
-		checkMiss(status , vp_index , entry);
+		
+		int frameNum = checkMiss(status , vp_index , entry);
+		return Integer.toString(frameNum).concat(offset); 
 	}
 	
-	private void checkMiss(int status , int vp_index , PageTableEntry entry) {
+	private int checkMiss(int status , int vp_index , PageTableEntry entry) {
 		if( status == 0 ) {
-			hit(entry);
+			return hit(entry);
 		}else if(status == 1) {
-			softMiss(vp_index);
-		}else {
-			hardMiss();
+			return softMiss(vp_index);
 		}
+		return hardMiss();
 	}
 	
-	private void hardMiss() {
+	private int hardMiss() {
+		Driver.outputHit(false);
+		Driver.outputSoft(false);
+		Driver.outputHard(true);
 		
+		return -1;
 	}
 	
-	private void softMiss(int vp_index) {
+	private int softMiss(int vp_index) {
+		Driver.outputHit(false);
+		Driver.outputSoft(true);
+		Driver.outputHard(false);
 		tlb.add(vp_index , vpt.findInVPT(vp_index));
+		return VPT.findInVPT(vp_index).getFrameNum();
 	}
 	
-	private void hit(PageTableEntry entry) {
-		
+	private int hit(PageTableEntry entry) {
+		Driver.outputHit(true);
+		Driver.outputSoft(false);
+		Driver.outputHard(false);
+		return entry.getFrameNum();
 	}
 	
 	/*/**
@@ -75,14 +114,14 @@ public class MMU {
 	public int indexVPT(String str) {
 			TLB.add(vp_index , entry);
 		}
-	}
+	}*/
 	
 	public static int physToVirt(String vma) {
 		//TODO
 		return -1;
 	}
 	public static String virtToPhys(int phys) {
-		//TODO
+		
 		return "";
 	}
 	
@@ -100,25 +139,7 @@ public class MMU {
 		}
 	}
     
-	/**
-	 * Find the contents of the given address and print the int to the console.
-	 * Should trap to OS on soft/hard miss.
-	 * @param te an individual TestEntry provided by the CPU
-	 */
-	public static void read(TestEntry te) {
-		setRbit(te.getAddr());
-		//TODO
-	}
 	
-	/**
-	 * Change the contents of the file of the address given in TestEntry. Should trap
-	 * to OS on soft/hard miss.
-	 * @param te an individual TestEntry provided by the CPU
-	 */
-	public static void write(TestEntry te) {
-		setDbit(te.getAddr());
-		// TODO: write value to memory
-	}
 	
 	/**
 	 * 
