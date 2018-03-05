@@ -16,8 +16,8 @@ import java.util.Scanner;
  * file.
  */
 public class CPU {
-	private int addrWidth = 16; // INST. NOTES: the cpu address width is 16 bits
-	private MMU mmu; // points to the MMU, required as a paramter for init.
+	private static int addrWidth = 16; // INST. NOTES: the cpu address width is 16 bits
+	private static MMU mmu; // points to the MMU, required as a paramter for init.
 	
 	/**
 	 * No default is available, so the class must be declared by passing the

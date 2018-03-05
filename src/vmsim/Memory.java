@@ -18,18 +18,24 @@ package vmsim;
  */
 public class Memory {
 	// 12bits (address width) - 8bits (page offset) = 4bits (page address width)
-    private int numPages = 16; // INST. NOTES: address width is 12 bits
-    private int pageSize = 256;
-    private int[][] ram;
+    private static int numPages = 16; // INST. NOTES: address width is 12 bits
+    private static int pageSize = 256;
+    private static int[][] ram;
     
     Memory() {
     	ram = new int[numPages][pageSize];
     }
     
-    public int[] getPage(int i) {
+    public static int[] getPage(TestEntry te) {
+		return ram[Integer.parseInt(te.getAddr().trim().substring(0, 1), 16)]; // convert hex address to dec offset
+    }
+    
+    public static int[] getPage(int i) {
     	return ram[i];
     }
-    public void setPage(int i, int[] pg) {
+    public static int[] setPage(int i, int[] pg) {
+    	int[] ret = ram[i];
     	ram[i] = pg;
+    	return ret;
     }
 }
