@@ -33,7 +33,7 @@ public class MMU {
 	 * @param te an individual TestEntry provided by the CPU
 	 * @throws EvictException 
 	 */
-	public void read(TestEntry te) throws EvictException {
+	public static void read(TestEntry te) throws EvictException {
 		String physAdd = translateVMAToPMA(te.getAddr());
 		
 
@@ -46,8 +46,11 @@ public class MMU {
 	 * @param te an individual TestEntry provided by the CPU
 	 */
 	public static void write(TestEntry te) {
-		//setDbit(te.getAddr());
-		// TODO: write value to memory
+		int i = physToVirt(te.getAddr());
+		int offset = Integer.parseInt(te.getAddr().substring(2, 4) , 16);
+		int[] page = Memory.getPage(i);
+		page[offset] = te.getWval();
+		Memory.setPage(i, page);
 	}
 	
 	/**
@@ -55,7 +58,7 @@ public class MMU {
 	 * Status: 0=hit ; 1=softMiss ; 2=hardMiss
 	 * @throws EvictException 
 	 */
-	public String translateVMAToPMA(String vm_address) throws EvictException {
+	public static String translateVMAToPMA(String vm_address) throws EvictException {
 		String offset = vm_address.substring(2, vm_address.length());
 		int vp_index = Integer.parseInt(vm_address.substring(0, 2) , 16);
 		int status = 0;
@@ -74,32 +77,33 @@ public class MMU {
 		return Integer.toString(frameNum).concat(offset); 
 	}
 	
-	private int checkMiss(int status , int vp_index , PageTableEntry entry) {
+	private static int checkMiss(int status , int vp_index , PageTableEntry entry) throws EvictException {
 		if( status == 0 ) {
 			return hit(entry);
 		}else if(status == 1) {
 			return softMiss(vp_index);
 		}
-		return hardMiss();
+		hardMiss(entry);
+		return -1; // impossible
 	}
 	
-	private int hardMiss() {
+	private static void hardMiss(PageTableEntry pte) throws EvictException {
 		Driver.outputHit(false);
 		Driver.outputSoft(false);
 		Driver.outputHard(true);
 		
-		return -1;
+		throw new EvictException("hard", pte);
 	}
 	
-	private int softMiss(int vp_index) {
+	private static int softMiss(int vp_index) {
 		Driver.outputHit(false);
 		Driver.outputSoft(true);
 		Driver.outputHard(false);
-		tlb.add(vp_index , vpt.findInVPT(vp_index));
+		TLB.add(vp_index , VPT.findInVPT(vp_index));
 		return VPT.findInVPT(vp_index).getFrameNum();
 	}
 	
-	private int hit(PageTableEntry entry) {
+	private static int hit(PageTableEntry entry) {
 		Driver.outputHit(true);
 		Driver.outputSoft(false);
 		Driver.outputHard(false);
@@ -129,10 +133,20 @@ public class MMU {
 	 * A single function the CPU can call to fulfill the instructions of a single
 	 * entry from a test_file.
 	 * @param te the next TestEntry from file
+	 * @throws EvictException 
 	 */
-	public static void processEntry(TestEntry te) {
+	public static void processEntry(TestEntry te) throws EvictException {
 		if (te.getRW() == 0) {
-			read(te);
+			try {
+				read(te);
+			} catch (EvictException e) {
+				if (e.getType() == "hard") {
+					throw e;
+				}
+				else if (e.getType() == "soft") {
+					//softevict
+				}
+			}
 		}
 		else if (te.getRW() == 1) {
 			write(te);

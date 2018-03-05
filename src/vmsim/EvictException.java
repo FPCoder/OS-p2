@@ -14,4 +14,5 @@ public class EvictException extends Exception {
 	}
 	
 	public String getType() { return type; }
+	public PageTableEntry getpte() { return pte; }
 }
