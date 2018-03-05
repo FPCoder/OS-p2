@@ -21,20 +21,46 @@ public class MMU {
 	
 	private void setDbit(String vp) {
 		//TODO: convert vp to index in TLB and VPT
-		vpt.setDbit(indexVPT(vp));
-		tlb.setDbit(indexTLB(vp));
+		//vpt.setDbit(indexVPT(vp));
+		//tlb.setDbit(indexTLB(vp));
 	}
 	private void setRbit(String vp) {
 		//TODO
-		vpt.setRbit(indexVPT(vp));
-		tlb.setRbit(indexTLB(vp));
+		//vpt.setRbit(indexVPT(vp));
+		//tlb.setRbit(indexTLB(vp));
 	}
 	
 	/**
+	 * Translates virtual mem address (testEntry address string) to physical mem address
+	 * Status: 0=hit ; 1=softMiss ; 2=hardMiss
+	 * @throws EvictException 
+	 */
+	public void translateVMAToPMA(String vm_address) throws EvictException {
+		int offset = Integer.parseInt(vm_address.substring(2, vm_address.length()) , 16);
+		int vp_index = Integer.parseInt(vm_address.substring(0, 2) , 16);
+		int status = 0;
+		
+		PageTableEntry entry = tlb.findInTLB(vp_index);
+		if(entry == null) {
+			status++;
+			entry = vpt.findInVPT(vp_index);
+		}
+		if(entry == null) {
+			status++;
+		}
+		
+		if(status == 2) {
+			//send hard miss to cpu
+		}else if(status == 1) {
+			tlb.add(vp_index , entry);
+		}
+	}
+	
+	/*/**
 	 * Take the address given by a TestEntry, and return its index in the VPT.
 	 * @param str address from test_file
 	 * @return index in VPT
-	 */
+	 
 	public int indexVPT(String str) {
 		//TODO
 		return 0;
@@ -44,11 +70,11 @@ public class MMU {
 	 * Take the address given by a TestEntry, and return its index in the TLB.
 	 * @param str address from test_file
 	 * @return index in TLB
-	 */
+	 
 	public int indexTLB(String str) {
 		//TODO
 		return 0;
-	}
+	}*/
 	
 	/**
 	 * A single function the CPU can call to fulfill the instructions of a single
@@ -79,6 +105,10 @@ public class MMU {
 	public void write(TestEntry te) {
 		setDbit(te.getAddr());
 		// TODO: write value to memory
+	}
+	
+	public static void remove(PageTableEntry entry) {
+		
 	}
 }
 

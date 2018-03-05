@@ -15,6 +15,18 @@ public class VPT {
     
     VPT() {
     	table = new PageTableEntry[size];
+    	for(PageTableEntry entry : table) {
+    		entry = null;
+    	}
+    }
+    
+    /**
+     * Given a virtual page number, check if it is in the VPT. 
+     * Returns entry at vp_num index. 
+     * If entry doesn't exist yet it will return null. 
+     */
+    public PageTableEntry findInVPT(int vp_num) {
+    	return table[vp_num];
     }
     
     public void setDbit(int i) {

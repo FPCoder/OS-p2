@@ -62,6 +62,7 @@ public class OS {
 		}
 		Memory.remove(e);
 		MMU.remove(e);
+		return -1;
 	}
 
 	public static void load(TestEntry te) throws FileNotFoundException {
