@@ -56,26 +56,6 @@ public class MMU {
 		}
 	}
 	
-	/*/**
-	 * Take the address given by a TestEntry, and return its index in the VPT.
-	 * @param str address from test_file
-	 * @return index in VPT
-	 
-	public int indexVPT(String str) {
-		//TODO
-		return 0;
-	}
-	
-	/**
-	 * Take the address given by a TestEntry, and return its index in the TLB.
-	 * @param str address from test_file
-	 * @return index in TLB
-	 
-	public int indexTLB(String str) {
-		//TODO
-		return 0;
-	}*/
-	
 	/**
 	 * A single function the CPU can call to fulfill the instructions of a single
 	 * entry from a test_file.
@@ -84,6 +64,9 @@ public class MMU {
 	public void processEntry(TestEntry te) {
 		if (te.getRW() == 0) {
 			read(te);
+		}
+		else if (te.getRW() == 1) {
+			write(te);
 		}
 	}
     
@@ -107,8 +90,13 @@ public class MMU {
 		// TODO: write value to memory
 	}
 	
-	public static void remove(PageTableEntry entry) {
-		
+	/**
+	 * 
+	 * @param entry
+	 * @return index in physical memory of evicted page
+	 */
+	public static int remove(PageTableEntry entry) {
+		return -1; // TODO: implement
 	}
 }
 

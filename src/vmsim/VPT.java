@@ -29,13 +29,15 @@ public class VPT {
     	return table[vp_num];
     }
     
-    public void setDbit(int i) {
+    public static int size() { return size; }
+    
+    public static void setDbit(int i, boolean b) {
     	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
-    	table[i].setDbit(true);
+    	table[i].setDbit(b);
     }
-    public void setRbit(int i) {
+    public static void setRbit(int i, boolean b) {
     	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
-    	table[i].setRbit(true);
+    	table[i].setRbit(b);
     }
     
     public PageTableEntry getEntry(int i) {
