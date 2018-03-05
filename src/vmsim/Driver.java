@@ -94,16 +94,16 @@ public class Driver {
 		*/
 	public static void main(String[] args) throws Exception {
 		// Check that parameters are valid
-		if (args.length == 2) {
+		if (args.length == 1) {
 			// Verify test file exists
 			if (!(new File(args[0])).isFile()) {
 				throw new Exception("Error: Invalid file location. First parameter must be a file, not a directory.");
 			}
-			if (!(new File(args[1])).isDirectory()) {
-				throw new Exception("Error: Invalid directory. Second parameter must be a directory containing page files.");
-			}
+			// if (!(new File(args[1])).isDirectory()) {
+			// 	throw new Exception("Error: Invalid directory. Second parameter must be a directory containing page files.");
+			// }
 
-			String page_files_working_set = generateWorkingSet(args[1]);
+			String page_files_working_set = generateWorkingSet("../page_files");
 			// TODO: Do something with the page files
 
 			run(args[0]);

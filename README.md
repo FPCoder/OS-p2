@@ -7,5 +7,5 @@ cd src
 javac vmsim/*.java
 ```
 ### Run
-`java -cp ./ vmsim.Driver ../test_files/test_1.txt ../page_files`
+`java -cp ./ vmsim.Driver ../test_files/test_1.txt`
 
