@@ -121,8 +121,8 @@ public class MMU {
 	}*/
 	
 	public static int physToVirt(String vma) {
-		//TODO
-		return -1;
+		int vp_num = Integer.parseInt(vma.substring(0, 2) , 16);
+		return VPT.getEntry(vp_num).getFrameNum();
 	}
 	public static String virtToPhys(int phys) {
 		

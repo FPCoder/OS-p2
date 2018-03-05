@@ -34,8 +34,6 @@ public class VPT {
     	table[vp_index] = entry;
     }
     
-    public static int size() { return size; }
-    
     public static void setDbit(int i, boolean b) {
     	if (i > table.length || i < 0) { throw new IndexOutOfBoundsException(); }
     	table[i].setDbit(b);
