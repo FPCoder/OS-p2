@@ -22,6 +22,8 @@ public class TLB {
     	return ret;
     }
     
+    public static int size() { return ents; }
+    
     public TlbEntry getEntry(String addr) throws EvictException {
     	for (int i = 0; i < ents; ++i) {
     		if (cache[i].getFrameNum() == addr) {
@@ -31,12 +33,12 @@ public class TLB {
     	throw new EvictException("soft"); //if entry not in tlb, throw exception(soft)
     }
 
-    public void setDbit(int i) {
+    public static void setDbit(int i, boolean b) {
     	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
-    	cache[i].setDbit(true);
+    	cache[i].setDbit(b);
     }
-    public void setRbit(int i) {
+    public static void setRbit(int i, boolean b) {
     	if (i > ents || i < 0) { throw new IndexOutOfBoundsException(); }
-    	cache[i].setRbit(true);
+    	cache[i].setRbit(b);
     }
 }

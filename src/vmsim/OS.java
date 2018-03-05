@@ -22,6 +22,7 @@ public class OS {
 	private static CircularLinkedList clockList;
 	private static Clock c = new Clock();
 	private static int instCount; //current instruction number
+	private static int nextReset; //instruction number for resetting r-bits
 	private static MMU mmu;
 	private static TLB tlb;
 	private static VPT vpt;
@@ -77,7 +78,15 @@ public class OS {
 		
 	}
 	public static void write(PageTableEntry pte) {
-		
+		if (!pte.isDirty()) {
+			return; // do nothing if file not updated
+		}
+		else {
+			int[] page = Memory.getPage(pte);
+			int i = -1;
+			//TODO
+			pte.setDbit(true);
+		}
 	}
 	
 	/**
@@ -89,10 +98,19 @@ public class OS {
 	
 	public static void advanceTime() {
 		c.tick();
+		if (instCount >= nextReset) {
+			resetRbits();
+			nextReset += 20;
+		}
 	}
 	
-	public static void restRbits() {
-		
+	public static void resetRbits() {
+		for (int i = 0; i < TLB.size(); ++i) {
+			TLB.setRbit(i, false);
+		}
+		for (int i = 0; i < VPT.size(); ++i) {
+			VPT.setRbit(i, false);
+		}
 	}
 	
 	public static void main(String[] args) {
